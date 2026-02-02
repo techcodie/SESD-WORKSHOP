@@ -10,7 +10,7 @@ class BookController {
     }
     async getAll(req, res) {
         try {
-            const data = await this.service.getAll();
+            const data = await this.service.getBooks();
             res.json(data);
         }
         catch (err) {
@@ -19,7 +19,7 @@ class BookController {
     }
     async getOne(req, res) {
         try {
-            const data = await this.service.getOne(req.params.id);
+            const data = await this.service.getBook(req.params.id);
             data ? res.json(data) : res.status(404).send('Not found');
         }
         catch (err) {
@@ -28,7 +28,7 @@ class BookController {
     }
     async create(req, res) {
         try {
-            const data = await this.service.add(req.body);
+            const data = await this.service.addBook(req.body);
             res.status(201).json(data);
         }
         catch (err) {
@@ -37,7 +37,7 @@ class BookController {
     }
     async update(req, res) {
         try {
-            const data = await this.service.update(req.params.id, req.body);
+            const data = await this.service.updateBook(req.params.id, req.body);
             data ? res.json(data) : res.status(404).send('Not found');
         }
         catch (err) {
@@ -46,7 +46,7 @@ class BookController {
     }
     async remove(req, res) {
         try {
-            const data = await this.service.remove(req.params.id);
+            const data = await this.service.removeBook(req.params.id);
             data ? res.send('Deleted') : res.status(404).send('Not found');
         }
         catch (err) {

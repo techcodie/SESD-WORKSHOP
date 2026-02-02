@@ -1,25 +1,11 @@
 import BookRepository from '../repositories/book.repository';
 
 export default class BookService {
-    private repo = new BookRepository();
+    repo = new BookRepository();
 
-    async getAll() {
-        return await this.repo.find();
-    }
-
-    async getOne(id: string) {
-        return await this.repo.findById(id);
-    }
-
-    async add(data: any) {
-        return await this.repo.create(data);
-    }
-
-    async update(id: string, data: any) {
-        return await this.repo.update(id, data);
-    }
-
-    async remove(id: string) {
-        return await this.repo.delete(id);
-    }
+    getBooks = () => this.repo.find();
+    getBook = (id: string) => this.repo.findById(id);
+    addBook = (data: any) => this.repo.create(data);
+    updateBook = (id: string, data: any) => this.repo.update(id, data);
+    removeBook = (id: string) => this.repo.delete(id);
 }

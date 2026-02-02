@@ -12,17 +12,12 @@ class App {
     constructor() {
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json());
-        // Routes
-        this.app.get('/', (req, res) => res.send('API Running'));
+        this.app.get('/', (req, res) => res.send('API is live'));
         this.app.use('/api/books', book_routes_1.default);
-        // Database
-        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/library';
-        mongoose_1.default.connect(mongoUri)
-            .then(() => console.log('DB Connected'))
-            .catch(err => console.log(err));
-        // Start
+        const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/library';
+        mongoose_1.default.connect(uri).then(() => console.log('Connected to DB'));
         const port = process.env.PORT || 3000;
-        this.app.listen(port, () => console.log(`Server on ${port}`));
+        this.app.listen(port, () => console.log(`Server on port ${port}`));
     }
 }
 exports.default = App;

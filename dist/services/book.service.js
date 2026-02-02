@@ -7,21 +7,11 @@ const book_repository_1 = __importDefault(require("../repositories/book.reposito
 class BookService {
     constructor() {
         this.repo = new book_repository_1.default();
-    }
-    async getAll() {
-        return await this.repo.find();
-    }
-    async getOne(id) {
-        return await this.repo.findById(id);
-    }
-    async add(data) {
-        return await this.repo.create(data);
-    }
-    async update(id, data) {
-        return await this.repo.update(id, data);
-    }
-    async remove(id) {
-        return await this.repo.delete(id);
+        this.getBooks = () => this.repo.find();
+        this.getBook = (id) => this.repo.findById(id);
+        this.addBook = (data) => this.repo.create(data);
+        this.updateBook = (id, data) => this.repo.update(id, data);
+        this.removeBook = (id) => this.repo.delete(id);
     }
 }
 exports.default = BookService;

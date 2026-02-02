@@ -5,20 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const book_schema_1 = __importDefault(require("../schema/book.schema"));
 class BookRepository {
-    async find() {
-        return await book_schema_1.default.find();
-    }
-    async findById(id) {
-        return await book_schema_1.default.findById(id);
-    }
-    async create(data) {
-        return await book_schema_1.default.create(data);
-    }
-    async update(id, data) {
-        return await book_schema_1.default.findByIdAndUpdate(id, data, { new: true });
-    }
-    async delete(id) {
-        return await book_schema_1.default.findByIdAndDelete(id);
+    constructor() {
+        this.find = () => book_schema_1.default.find();
+        this.findById = (id) => book_schema_1.default.findById(id);
+        this.create = (data) => book_schema_1.default.create(data);
+        this.update = (id, data) => book_schema_1.default.findByIdAndUpdate(id, data, { new: true });
+        this.delete = (id) => book_schema_1.default.findByIdAndDelete(id);
     }
 }
 exports.default = BookRepository;
