@@ -11,33 +11,18 @@ dotenv_1.default.config();
 class App {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || 3000;
-        this.setup();
-        this.routes();
-        this.db();
-        this.listen();
-    }
-    setup() {
         this.app.use(express_1.default.json());
-    }
-    routes() {
-        this.app.get('/', (req, res) => res.send('Library API is live'));
+        // Routes
+        this.app.get('/', (req, res) => res.send('API Running'));
         this.app.use('/api/books', book_routes_1.default);
-    }
-    async db() {
-        try {
-            const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/library';
-            await mongoose_1.default.connect(uri);
-            console.log('Connected to DB');
-        }
-        catch (err) {
-            console.error('DB error:', err);
-        }
-    }
-    listen() {
-        this.app.listen(this.port, () => {
-            console.log(`Live on port ${this.port}`);
-        });
+        // Database
+        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/library';
+        mongoose_1.default.connect(mongoUri)
+            .then(() => console.log('DB Connected'))
+            .catch(err => console.log(err));
+        // Start
+        const port = process.env.PORT || 3000;
+        this.app.listen(port, () => console.log(`Server on ${port}`));
     }
 }
 exports.default = App;

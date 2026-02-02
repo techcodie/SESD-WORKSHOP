@@ -6,55 +6,46 @@ export default class BookController {
 
     async getAll(req: Request, res: Response) {
         try {
-            const books = await this.service.getBooks();
-            res.status(200).json(books);
-        } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            const data = await this.service.getAll();
+            res.json(data);
+        } catch (err: any) {
+            res.status(500).json({ error: err.message });
         }
     }
 
     async getOne(req: Request, res: Response) {
         try {
-            const book = await this.service.getBook(req.params.id);
-            if (!book) {
-                return res.status(404).json({ message: "Book not found" });
-            }
-            res.status(200).json(book);
-        } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            const data = await this.service.getOne(req.params.id);
+            data ? res.json(data) : res.status(404).send('Not found');
+        } catch (err: any) {
+            res.status(500).json({ error: err.message });
         }
     }
 
     async create(req: Request, res: Response) {
         try {
-            const book = await this.service.addBook(req.body);
-            res.status(201).json(book);
-        } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            const data = await this.service.add(req.body);
+            res.status(201).json(data);
+        } catch (err: any) {
+            res.status(500).json({ error: err.message });
         }
     }
 
     async update(req: Request, res: Response) {
         try {
-            const book = await this.service.updateBook(req.params.id, req.body);
-            if (!book) {
-                return res.status(404).json({ message: "Book not found" });
-            }
-            res.status(200).json(book);
-        } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            const data = await this.service.update(req.params.id, req.body);
+            data ? res.json(data) : res.status(404).send('Not found');
+        } catch (err: any) {
+            res.status(500).json({ error: err.message });
         }
     }
 
     async remove(req: Request, res: Response) {
         try {
-            const book = await this.service.removeBook(req.params.id);
-            if (!book) {
-                return res.status(404).json({ message: "Book not found" });
-            }
-            res.status(200).json({ message: "Book deleted" });
-        } catch (error: any) {
-            res.status(500).json({ message: error.message });
+            const data = await this.service.remove(req.params.id);
+            data ? res.send('Deleted') : res.status(404).send('Not found');
+        } catch (err: any) {
+            res.status(500).json({ error: err.message });
         }
     }
 }

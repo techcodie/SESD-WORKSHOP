@@ -8,19 +8,19 @@ class BookService {
     constructor() {
         this.repo = new book_repository_1.default();
     }
-    async getBooks() {
+    async getAll() {
         return await this.repo.find();
     }
-    async getBook(id) {
+    async getOne(id) {
         return await this.repo.findById(id);
     }
-    async addBook(data) {
+    async add(data) {
         return await this.repo.create(data);
     }
-    async updateBook(id, data) {
+    async update(id, data) {
         return await this.repo.update(id, data);
     }
-    async removeBook(id) {
+    async remove(id) {
         return await this.repo.delete(id);
     }
 }
